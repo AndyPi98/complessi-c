@@ -102,3 +102,42 @@ int divisione_complessi(Complesso dividendo, Complesso divisore, Complesso *risu
     }   
 
 }
+
+int radici_complesse(Complesso z, int n, Complesso radici[], int capacità)
+{
+    if (n < 1 || n > capacità)
+    {
+        return 0;
+    }
+    
+    double pi = acos(-1.0);
+
+    double modulo_radice = pow(modulo_complesso(z), 1.0/n);
+
+    double fase;
+        if (z.reale==0 && z.immaginaria==0)
+        {
+            fase = 0;
+        }
+        else{
+            fase = fase_complesso(z);
+        }
+
+    for (int k = 0; k < n; k++)
+             {
+                double angolo = (fase + 2*pi*k) / n;
+                radici[k] = polare_to_cartesiano(modulo_radice, angolo);
+             }
+    return 1;
+}
+
+int complessi_vicini(Complesso a, Complesso b, double tolleranza){
+    if ((fabs(a.reale-b.reale) < tolleranza) && fabs(a.immaginaria-b.immaginaria) < tolleranza)
+    {
+        return 1;
+    }
+    else{
+        return 0;
+    }
+    
+}

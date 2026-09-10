@@ -21,4 +21,8 @@ int divisione_complessi(Complesso dividendo,
                        Complesso divisore,
                        Complesso *risultato);
 
+int radici_complesse(Complesso z,int n, Complesso radici[], int capacità);
+
+int complessi_vicini(Complesso a, Complesso b, double tolleranza);
+
 #endif

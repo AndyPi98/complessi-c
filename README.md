@@ -55,3 +55,48 @@ Con z1 = 3 + 2i e z2 = 1 - 5i:
   i limiti numerici delle formule implementate.
 - Per le potenze viene adottata la convenzione z^0 = 1,
   anche quando z è zero.
+  
+
+## Radici n-esime
+
+La calcolatrice permette di calcolare le radici di z1
+con indice da 1 a 20. Ogni risultato viene elevato
+all'indice scelto e confrontato con z1 mediante una
+tolleranza assoluta di 1e-6.
+
+## Analisi dei segnali
+
+- `segnali.h` e `segnali.c`: DFT per campioni reali.
+- `demo_segnali.c`: esempio con 100 campioni a 100 Hz.
+
+Il segnale contiene due sinusoidi:
+- 5 Hz, ampiezza 2.
+- 15 Hz, ampiezza 0.5.
+
+Compilazione e avvio:
+
+```bash
+gcc -Wall -Wextra demo_segnali.c segnali.c complessi.c -o demo_segnali.exe -lm
+./demo_segnali.exe
+```
+
+La demo genera nella cartella di esecuzione:
+- `segnale.csv`: tempo e valore dei campioni.
+- `spettro.csv`: frequenza e ampiezza da 0 a 50 Hz.
+
+I file vengono sovrascritti a ogni esecuzione.
+La DFT usa un algoritmo diretto con complessità O(N²).
+L'esempio usa frequenze coincidenti con i bin della DFT.
+
+## Test automatici
+
+`test_complessi.c` verifica somma, prodotto, divisione
+e rifiuto della divisione per zero.
+
+```bash
+gcc -Wall -Wextra test_complessi.c complessi.c -o test_complessi.exe -lm
+./test_complessi.exe
+```
+
+Il programma termina con codice 0 se tutti i test passano,
+1 al primo fallimento.

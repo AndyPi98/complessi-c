@@ -19,9 +19,10 @@ int main(void)
 {
    Complesso z1;
    Complesso z2;
-   int scelta;
    Complesso risultato;
-   
+   Complesso radici[20];
+   int scelta;
+      
     printf("Inserisci parte reale e immaginaria di z1: ");
 
     if (leggi_complesso(&z1) != 1)
@@ -49,6 +50,7 @@ int main(void)
     printf("6. Fase di z1\n");
     printf("7. Coniugato di z1\n");
     printf("8. Potenza di z1\n");
+    printf("9. Radici n-esime di z1\n");
     printf("Scegli un'operazione: ");
 
     if (scanf("%d", &scelta) != 1)
@@ -153,13 +155,50 @@ int main(void)
             break;
             
         }
-        
+    
+    case 9: //Radice numero complesso
+        {
+            int n;
+            printf("Inserisci l'indice della radice (da 1 a 20): ");
 
+            if (scanf("%d", &n) != 1)
+            {
+                printf("Errore devi inserire un numero intero \n");
+                return 1;
+            }
+            
+            int esito = radici_complesse(z1, n, radici, 20);
+            
+            if (esito == 1)
+            {
+                printf("\n");
+                for (int k = 0; k < n; k++)
+             {
+                printf("Radice %d: %.6f %+.6fi\n", k, radici[k].reale, radici[k].immaginaria);
+
+                Complesso verifica = potenza_complesso(radici[k],n);
+                printf("Elevata alla potenza %d: %.6f %+.6fi\n", n, verifica.reale, verifica.immaginaria);
+
+                if (complessi_vicini(verifica, z1, 1e-6))
+                {
+                    printf("Verifica Ok\n");
+                }
+                else{
+                    printf("Verifica fallita\n");
+                }
+            
+            }
+            }
+            else{
+                printf("Errore: l'indice della radice deve essere compreso tra 1 e 20\n");
+            }           
+            
+            break;
+        }
+        
     default:
             printf("Scelta non valida\n");
             break;
-
-    
 
     }
     
